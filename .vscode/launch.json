@@ -10,6 +10,30 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal"
+        },
+        {
+            "name": "FastAPI: agent_api.agent_server",
+            "type": "python",
+            "request": "launch",
+            "module": "uvicorn",
+            "args": [
+                "agent_api.agent_server:app",
+                "--reload"
+            ],
+            "jinja": true,
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "FastAPI: backend_poc.api.main",
+            "type": "python",
+            "request": "launch",
+            "module": "uvicorn",
+            "args": [
+                "backend_poc.api.main:app",
+                "--reload"
+            ],
+            "jinja": true,
+            "cwd": "${workspaceFolder}"
         }
     ]
 }
