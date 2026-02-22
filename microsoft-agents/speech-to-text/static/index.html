@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Live Complaint Capture</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Newsreader:wght@400;600&family=Space+Grotesk:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="stage">
+      <section class="intro">
+        <div class="brand">
+          <span class="brand-dot"></span>
+          <p>Service Desk</p>
+        </div>
+        <h1>Capture the customer complaint in real time.</h1>
+        <p class="lede">
+          Tap the mic, speak the complaint, and watch the notes fill in as the audio arrives.
+        </p>
+        <div class="controls">
+          <button id="startBtn" class="primary">Start Mic</button>
+          <button id="stopBtn" class="ghost" disabled>Stop</button>
+          <span id="status" class="status idle">Idle</span>
+        </div>
+        <div class="signal">
+          <div class="wave">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <p id="meterText">Waiting for audio...</p>
+        </div>
+      </section>
+
+      <section class="panel">
+        <header>
+          <h2>Customer Complaint / Notes</h2>
+          <p>Streaming transcript appears here.</p>
+        </header>
+        <textarea
+          id="notes"
+          placeholder="Start speaking to populate the complaint notes..."
+          rows="12"
+        ></textarea>
+        <div class="panel-footer">
+          <span id="lastUpdate">No updates yet.</span>
+          <button id="clearBtn" class="ghost">Clear</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>

@@ -1,19 +1,18 @@
 # FastAPI endpoint to call agent and return response
 
 import os
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from pydantic import BaseModel
 from agent_framework.azure import AzureOpenAIResponsesClient
-import asyncio
 
 app = FastAPI()
 
-class AgentRequest(BaseModel):
+class AgentPromptRequest(BaseModel):
     prompt: str
 
 # Async agent call function
-async def call_agent(prompt: str):
-    agent = AzureOpenAIResponsesClient(
+async def run_prompt_responder_agent(user_prompt: str):
+    prompt_responder_agent = AzureOpenAIResponsesClient(
         endpoint=os.getenv('AZURE_OPENAI_ENDPOINT'),
         deployment_name=os.getenv('AZURE_OPENAI_DEPLOYMENT_NAME'),
         api_version=os.getenv('AZURE_OPENAI_API_VERSION'),
@@ -22,12 +21,12 @@ async def call_agent(prompt: str):
         name="APIResponder",
         instructions="You are a helpful assistant. Answer the user's prompt clearly.",
     )
-    return await agent.run(prompt)
+    return await prompt_responder_agent.run(user_prompt)
 
 @app.post("/agent")
-async def agent_endpoint(request: AgentRequest):
-    response = await call_agent(request.prompt)
-    return {"response": str(response)}
+async def run_agent_endpoint(request_payload: AgentPromptRequest):
+    agent_response = await run_prompt_responder_agent(request_payload.prompt)
+    return {"response": str(agent_response)}
 
 # For local testing with uvicorn
 if __name__ == "__main__":
